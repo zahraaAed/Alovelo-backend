@@ -3,8 +3,8 @@ const aboutContent = require("../Models/aboutModel");
 const addAboutContent = async (req, res) => {
   try {
     console.log("Request received at /api/about/add");
-    console.log('Request Body:', req.body);  // Check the form data
-    console.log('Uploaded Files:', req.files);  // Check uploaded files
+    console.log('Request Body:', req.body); 
+    console.log('Uploaded Files:', req.files);  
 
     const {
       hero_title,
@@ -14,14 +14,14 @@ const addAboutContent = async (req, res) => {
       vision_content,
       mission_title,
       mission_content,
-      features_title // Assuming features_title is now directly an array
+      features_title ,
     } = req.body;
 
     if (!hero_title || !hero_content || !vision_title || !vision_content || !mission_title || !mission_content) {
       return res.status(400).json({ error: "All required fields must be filled" });
     }
 
-    // Save image paths if files are uploaded
+    // Save image paths 
     const hero_image = req.files["hero_image"] ? `/images/${req.files["hero_image"][0].filename}` : null;
     const main_image = req.files["main_image"] ? `/images/${req.files["main_image"][0].filename}` : null;
 
@@ -29,7 +29,7 @@ const addAboutContent = async (req, res) => {
       ? req.files["features_icon"].map(file => `/images/${file.filename}`)
       : [];
 
-    // Directly use the features_title array
+    //  use the features_title array
     const parsed_features_title = features_title ? features_title : [];
 
     const aboutData = {
