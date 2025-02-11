@@ -1,5 +1,5 @@
 import express from "express";
-import ContentHome from "../Models/homeModel.js"; // Ensure this path is correct
+import ContentHome from "../Models/homeModel.js"; 
 
 const router = express.Router();
 

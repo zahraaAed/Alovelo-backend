@@ -3,6 +3,7 @@ import express from "express";
 import cors from "cors";
 import mongoose from "mongoose";
 import homeRoute from "../Routes/homeRoute.js";
+import servicesRoute from "../Routes/servicesRoute.js";
 dotenv.config();
 
 const app = express();
@@ -15,6 +16,7 @@ app.use(express.json());
 
 // Use the routes
 app.use("/api/home", homeRoute);
+app.use("/api/services", servicesRoute);
 
 
 
