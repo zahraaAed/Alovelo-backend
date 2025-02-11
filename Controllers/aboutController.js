@@ -3,49 +3,33 @@ const aboutContent = require("../Models/aboutModel");
 const addAboutContent = async (req, res) => {
   try {
     console.log("Request received at /api/about/add");
-    console.log('Request Body:', req.body); 
-    console.log('Uploaded Files:', req.files);  
-
-    const {
-      hero_title,
-      hero_subtitle,
-      hero_content,
-      vision_title,
-      vision_content,
-      mission_title,
-      mission_content,
-      features_title ,
-    } = req.body;
-
-    if (!hero_title || !hero_content || !vision_title || !vision_content || !mission_title || !mission_content) {
-      return res.status(400).json({ error: "All required fields must be filled" });
-    }
-
-    // Save image paths 
-    const hero_image = req.files["hero_image"] ? `/images/${req.files["hero_image"][0].filename}` : null;
-    const main_image = req.files["main_image"] ? `/images/${req.files["main_image"][0].filename}` : null;
-
-    const features_icon = req.files["features_icon"]
-      ? req.files["features_icon"].map(file => `/images/${file.filename}`)
-      : [];
-
-    //  use the features_title array
-    const parsed_features_title = features_title ? features_title : [];
-
-    const aboutData = {
-      hero_title,
-      hero_subtitle,
-      hero_content,
-      hero_image,
-      vision_title,
-      vision_content,
-      mission_title,
-      mission_content,
-      main_image,
-      features_icon,
-      features_title: parsed_features_title
-    };
-
+  
+          // Access files by their field names
+          const heroImageFile = req.files.hero_image?.[0];
+          const mainImageFile = req.files.main_image?.[0];
+          const featuresIcons = req.files.features_icon || [];
+  
+          // Create paths for database storage
+          const heroImagePath = heroImageFile ? `/images/${heroImageFile.filename}` : null;
+          const mainImagePath = mainImageFile ? `/images/${mainImageFile.filename}` : null;
+          const featuresIconPaths = featuresIcons.map(file => `/images/${file.filename}`);
+  
+          // Rest of your existing logic...
+          
+          const aboutData = {
+              hero_title,
+              hero_content,
+              hero_image: heroImagePath,
+              vision_title,
+              vision_content,
+              mission_title,
+              mission_content,
+              main_image: mainImagePath,
+              features_icon: featuresIconPaths,
+              features_title: parsed_features_title
+          };
+  
+   
     // Check if content exists and update or create new content
     const existingContent = await aboutContent.findOne();
     if (existingContent) {

@@ -5,9 +5,6 @@ const AboutSchema = new mongoose.Schema({
     type: String, 
     required: true 
   },
-  hero_subtitle: { 
-    type: String 
-  },
   hero_content: { 
     type: String, 
     required: true 
