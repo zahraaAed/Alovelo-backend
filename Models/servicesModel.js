@@ -4,7 +4,6 @@ const servicesSchema = new mongoose.Schema(
   {
     heroTitle: {
       type: String,
-      required: true, // e.g., "HOW CAN WE SERVE YOU?"
     },
     heroImage: {
       type: String, // URL for the hero section image
