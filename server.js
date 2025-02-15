@@ -2,9 +2,11 @@ require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
+const path = require("path"); // ✅ Import path correctly
 const homeRoute = require("./Routes/homeRoute");
-const aboutRoute =require("./Routes/aboutRoute");
-const servicesRoute=require("./Routes/servicesRoute");
+const aboutRoute = require("./Routes/aboutRoute");
+const servicesRoute = require("./Routes/servicesRoute");
+
 const app = express();
 const PORT = process.env.PORT || 3000;
 
@@ -19,8 +21,9 @@ app.use((req, res, next) => {
     next();
 });
 
-// Routes
-app.use("/images", express.static("images"));
+// ✅ Correct way to serve static images in CommonJS
+app.use("/images", express.static(path.join(__dirname, "images")));
+
 app.use("/api/home", homeRoute);
 app.use("/api/about", aboutRoute);
 app.use("/api/services", servicesRoute);
